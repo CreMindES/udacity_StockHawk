@@ -5,6 +5,8 @@
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:gravity="center_vertical"
     android:orientation="horizontal"
+    android:paddingStart="@dimen/list_item_padding_side"
+    android:paddingEnd="@dimen/list_item_padding_side"
     android:paddingLeft="@dimen/list_item_padding_side"
     android:paddingRight="@dimen/list_item_padding_side">
 
@@ -28,7 +30,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/list_item_price_margin_end"
-            tools:text="1000.00" />
+            android:layout_marginRight="@dimen/list_item_price_margin_end"
+            tools:text="1000.00"
+            tools:ignore="RtlHardcoded" />
 
         <TextView
             android:id="@+id/change"
@@ -36,6 +40,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/percent_change_pill_green"
+            android:paddingStart="@dimen/list_item_change_padding_side"
+            android:paddingEnd="@dimen/list_item_change_padding_side"
             android:paddingLeft="@dimen/list_item_change_padding_side"
             android:paddingRight="@dimen/list_item_change_padding_side"
             tools:text="100%" />
