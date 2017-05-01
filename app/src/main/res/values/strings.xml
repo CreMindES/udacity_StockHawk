@@ -20,6 +20,9 @@
 
     <string name="action_change_units">@string/pref_display_mode_key</string>
 
+    <!-- Content description for add new stock floating action button on main activity. -->
+    <string name="activity_main_cont_desc_button_add">Add stock to the list</string>
+
 
     <string name="dialog_title">Add Stock</string>
     <string name="dialog_hint">Symbol (e.g. GOOG)</string>
