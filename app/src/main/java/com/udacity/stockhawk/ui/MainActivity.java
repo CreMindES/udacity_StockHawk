@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     TextView error;
     private StockAdapter adapter;
 
+
     @Override
     public void onClick(String symbol) {
         Timber.d("Symbol clicked: %s", symbol);
@@ -162,11 +163,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 .equals(getString(R.string.pref_display_mode_absolute_key))) {
             item.setIcon(R.drawable.ic_percentage);
             // setTitle internally also calls setContentDescription
-            item.setTitle( "Percent" );
+            item.setTitle(getString(R.string.activity_main_change_display_mode_percent));
         } else {
             item.setIcon(R.drawable.ic_dollar);
             // setTitle internally also calls setContentDescription
-            item.setTitle( "Dollar" );
+            item.setTitle(getString(R.string.activity_main_change_display_mode_dollar));
         }
     }
 

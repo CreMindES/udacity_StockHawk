@@ -22,6 +22,8 @@
 
     <!-- Content description for add new stock floating action button on main activity. -->
     <string name="activity_main_cont_desc_button_add">Add stock to the list</string>
+    <string name="activity_main_change_display_mode_percent">Percent</string>
+    <string name="activity_main_change_display_mode_dollar">Dollar</string>
 
 
     <string name="dialog_title">Add Stock</string>
