@@ -6,9 +6,16 @@ import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.design.widget.Snackbar;
+import android.support.v4.content.LocalBroadcastManager;
+import android.text.TextUtils;
+import android.widget.Toast;
 
+import com.udacity.stockhawk.R;
+import com.udacity.stockhawk.Utility;
 import com.udacity.stockhawk.data.Contract;
 import com.udacity.stockhawk.data.PrefUtils;
 import com.udacity.stockhawk.mock.MockUtils;
@@ -70,10 +77,22 @@ public final class QuoteSyncJob {
             ArrayList<ContentValues> quoteCVs = new ArrayList<>();
 
             while (iterator.hasNext()) {
-                String symbol = iterator.next();
-
+                final String symbol = iterator.next();
 
                 Stock stock = quotes.get(symbol);
+                if( !stock.isValid() ) {
+                    // in case of invalid stock symbol
+                    PrefUtils.removeStock( context, symbol );
+
+                    Intent intent = new Intent( context.getString(R.string.broadcast_snackbar) );
+                    intent.putExtra(
+                        context.getString(R.string.snack_bar_message_invalid_symbol),
+                        context.getString(R.string.error_invalid_stock_symbol)
+                    );
+                    LocalBroadcastManager.getInstance( context ).sendBroadcast( intent );
+
+                    continue;
+                }
                 StockQuote quote = stock.getQuote();
 
                 float price = quote.getPrice().floatValue();

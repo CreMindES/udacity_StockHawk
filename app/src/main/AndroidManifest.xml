@@ -25,7 +25,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.StockActivity">
+            android:name=".ui.StockActivity"
+            android:label="@string/activity_stock_title">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.udacity.stockhawk.ui.MainActivity" />

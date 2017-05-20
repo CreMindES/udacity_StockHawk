@@ -1,13 +1,19 @@
 package com.udacity.stockhawk.ui;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -43,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @BindView(R.id.error)
     TextView error;
     private StockAdapter adapter;
-
+    private BroadcastReceiver serviceReceiver;
 
     @Override
     public void onClick(String symbol) {
@@ -82,7 +88,47 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             }
         }).attachToRecyclerView(stockRecyclerView);
 
+        serviceReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if( intent.hasExtra( getString(R.string.snack_bar_message_invalid_symbol) ) ) {
+                    onInvalidStock();
+                } else {
+                    Timber.e( "Unknown snackbar message type" );
+                }
+            }
+        };
+    }
 
+    protected void onInvalidStock() {
+        Snackbar sb = Snackbar.make(
+            findViewById( R.id.activity_main_coordinator_layout ),
+            getString( R.string.error_invalid_stock_symbol ),
+            Snackbar.LENGTH_LONG
+        );
+        sb.getView().setBackgroundColor( ContextCompat.getColor( getApplicationContext(), R.color.material_red_700) );
+        sb.show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        final IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction( "EVENT_SNACKBAR" );
+
+        LocalBroadcastManager.getInstance(this).registerReceiver( serviceReceiver, intentFilter );
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        try {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver( serviceReceiver );
+        } catch (Exception ex) {
+            Timber.e( "Error unregistering ServiceReceiver", ex );
+        }
     }
 
     private boolean networkUp() {
