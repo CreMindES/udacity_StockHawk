@@ -1,9 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.udacity.stockhawk.ui.StockActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/activity_stock_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/activity_stock_main_price_padding"
+                android:paddingBottom="0dp"
+                android:textAlignment="viewStart"
+                android:textSize="@dimen/activity_stock_font_size_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Nokia" />
+
+            <TextView
+                android:id="@+id/activity_stock_price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/activity_stock_main_price_padding"
+                android:textAlignment="textStart"
+                android:textSize="@dimen/activity_stock_font_size_main_price"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/activity_stock_name"
+                tools:text="$3.43" />
+
+            <TextView
+                android:id="@+id/activity_stock_price_change"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="viewEnd"
+                android:padding="@dimen/activity_stock_item_padding"
+                app:layout_constraintTop_toTopOf="@+id/activity_stock_price"
+                app:layout_constraintBottom_toBottomOf="@id/activity_stock_price"
+                app:layout_constraintLeft_toLeftOf="@+id/activity_stock_price"
+                app:layout_constraintRight_toRightOf="@+id/activity_stock_price"
+                app:layout_constraintStart_toStartOf="@id/activity_stock_price"
+                app:layout_constraintEnd_toEndOf="@id/activity_stock_price"
+                tools:text="+$0.07 (+1.15%)"/>
+
+            <TextView
+                android:id="@+id/activity_stock_history_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/activity_stock_item_padding"
+                android:text="@string/activity_stock_history_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/activity_stock_price_change"
+                tools:text="History" />
+
+            <TextView
+                android:id="@+id/activity_stock_exchange"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/activity_stock_item_padding"
+                android:paddingTop="0dp"
+                android:textAlignment="viewEnd"
+                android:textSize="@dimen/activity_stock_font_size_exchange"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/activity_stock_history_title"
+                app:layout_constraintBottom_toBottomOf="@id/activity_stock_history_title"
+                tools:text="NASDAQ" />
+
+            <com.db.chart.view.LineChartView xmlns:chart="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/activity_stock_linechart"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/activity_stock_history_chart_height"
+                android:padding="@dimen/activity_stock_item_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                chart:chart_axisColor="@android:color/white"
+                app:layout_constraintTop_toBottomOf="@+id/activity_stock_history_title"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

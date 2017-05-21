@@ -32,6 +32,8 @@
 
     <!-- Activity Stock Detail -->
     <string name="activity_stock_title">Stock Details</string>
+    <string name="activity_stock_history_title">History</string>
+    <string name="activity_stock_cont_desc_graph">Stock price chart</string>
 
 
     <string name="dialog_title">Add Stock</string>

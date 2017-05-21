@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     public void button(@SuppressWarnings("UnusedParameters") View view) {
-        new AddStockDialog().show(getFragmentManager(), "StockDialogFragment");
+        new AddStockDialog().show( getFragmentManager(), "StockDialogFragment" );
     }
 
     void addStock(String symbol) {
