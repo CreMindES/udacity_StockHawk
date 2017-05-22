@@ -11,6 +11,7 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.udacity.stockhawk.R;
+import com.udacity.stockhawk.Utility;
 import com.udacity.stockhawk.data.Contract;
 import com.udacity.stockhawk.data.PrefUtils;
 import com.udacity.stockhawk.ui.StockActivity;
@@ -86,17 +87,9 @@ public class StockWidgetRemoteViewsService extends RemoteViewsService {
                 float changeAbs     = cursor.getFloat ( Contract.Quote.POSITION_ABSOLUTE_CHANGE );
                 float changePercent = cursor.getFloat ( Contract.Quote.POSITION_PERCENTAGE_CHANGE ) / 100;
 
-                DecimalFormat dollarFormat     = (DecimalFormat) NumberFormat.getCurrencyInstance( Locale.US );
-                DecimalFormat dollarFormatSign = (DecimalFormat) NumberFormat.getCurrencyInstance( Locale.US );
-                dollarFormatSign.setPositivePrefix( "+$" );
-                DecimalFormat percentageFormatSign = (DecimalFormat) NumberFormat.getPercentInstance(Locale.getDefault());
-                percentageFormatSign.setMaximumFractionDigits( 2 );
-                percentageFormatSign.setMinimumFractionDigits( 2 );
-                percentageFormatSign.setPositivePrefix( "+" );
-
-                String priceString         = dollarFormat.format( price );
-                String changeAbsString     = dollarFormatSign.format( changeAbs );
-                String changePercentString = percentageFormatSign.format( changePercent );
+                String priceString         = Utility.formatAsDollar( price );
+                String changeAbsString     = Utility.formatAsDollarSign( changeAbs );
+                String changePercentString = Utility.formatAsPercentageSign( changePercent );
 
                 remoteViewRow.setTextViewText( R.id.stock_widget_item_symbol, symbol );
                 remoteViewRow.setTextViewText( R.id.stock_widget_item_price , priceString );

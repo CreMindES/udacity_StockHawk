@@ -18,6 +18,7 @@ import com.db.chart.view.ChartView;
 import com.db.chart.view.LineChartView;
 import com.github.mikephil.charting.charts.LineChart;
 import com.udacity.stockhawk.R;
+import com.udacity.stockhawk.Utility;
 import com.udacity.stockhawk.data.Contract;
 import com.udacity.stockhawk.data.StockProvider;
 
@@ -50,10 +51,7 @@ public class StockActivity extends AppCompatActivity
     float changePercent;
     String history;
 
-    private DecimalFormat dollarFormat;
     private DecimalFormat dollarFormatShort;
-    private DecimalFormat dollarFormatSign;
-    private DecimalFormat percentageFormatSign;
 
     @BindView( R.id.activity_stock_name )
     TextView stockNameTextView;
@@ -88,15 +86,8 @@ public class StockActivity extends AppCompatActivity
 
         setTitle( symbol );
 
-        dollarFormat      = (DecimalFormat) NumberFormat.getCurrencyInstance( Locale.US );
         dollarFormatShort = (DecimalFormat) NumberFormat.getCurrencyInstance( Locale.US );
-        dollarFormatSign  = (DecimalFormat) NumberFormat.getCurrencyInstance( Locale.US );
         dollarFormatShort.setMinimumFractionDigits( 0 );
-        dollarFormatSign.setPositivePrefix( "+$" );
-        percentageFormatSign = (DecimalFormat) NumberFormat.getPercentInstance(Locale.getDefault());
-        percentageFormatSign.setMaximumFractionDigits( 2 );
-        percentageFormatSign.setMinimumFractionDigits( 2 );
-        percentageFormatSign.setPositivePrefix( "+" );
 
         getSupportLoaderManager().initLoader( CURSOR_LOADER_ID, null, this );
 
@@ -139,10 +130,10 @@ public class StockActivity extends AppCompatActivity
 
                 stockNameTextView.setText( name );
                 stockExchangeTextView.setText( stockExchange );
-                priceTextView.setText( dollarFormat.format( price ) );
+                priceTextView.setText( Utility.formatAsDollar( price ) );
                 priceChangeTextView.setText(
-                    dollarFormatSign.format(changeAbsolute) + " (" +
-                    percentageFormatSign.format(changePercent) + ")"
+                    Utility.formatAsDollarSign( changeAbsolute ) + " (" +
+                    Utility.formatAsPercentageSign( changePercent ) + ")"
                 );
 
 

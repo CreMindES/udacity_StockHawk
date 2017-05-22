@@ -14,6 +14,20 @@ import java.util.Locale;
 
 public class Utility {
 
+    static private DecimalFormat formatDollar =
+            (DecimalFormat) NumberFormat.getCurrencyInstance( Locale.US );
+    static private DecimalFormat formatDollarSign =
+            (DecimalFormat) NumberFormat.getCurrencyInstance( Locale.US );
+    static private DecimalFormat formatPercentageSign =
+            (DecimalFormat) NumberFormat.getPercentInstance( Locale.getDefault() );
+
+    static public void init() {
+        formatDollarSign.setPositivePrefix( "+$" );
+        formatPercentageSign.setMaximumFractionDigits( 2 );
+        formatPercentageSign.setMinimumFractionDigits( 2 );
+        formatPercentageSign.setPositivePrefix( "+" );
+    }
+
     /**
      * Returns true if the network is available or about to become available.
      *
@@ -27,5 +41,13 @@ public class Utility {
         return networkInfo != null && networkInfo.isConnectedOrConnecting();
     }
 
-
+    static public String formatAsDollar( float num ) {
+        return formatDollar.format( num );
+    }
+    static public String formatAsDollarSign( float num ) {
+        return formatDollarSign.format( num );
+    }
+    static public String formatAsPercentageSign( float num ) {
+        return formatPercentageSign.format( num );
+    }
 }
