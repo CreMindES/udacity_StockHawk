@@ -17,8 +17,9 @@
             android:layout_height="@dimen/widget_app_name_height"
             android:textColor="@color/black"
             android:padding="@dimen/activity_stock_item_padding"
+            android:textAlignment="viewStart"
             android:background="@color/material_teal_a700"
-            android:text="@string/app_name"/>
+            android:text="@string/app_name" />
 
         <ImageView
             android:id="@+id/imageView"
@@ -28,7 +29,8 @@
             android:padding="@dimen/activity_stock_item_padding"
             android:contentDescription="@string/widget_cont_desc_app_icon"
             android:src="@drawable/stock"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:textAlignment="viewEnd" />
 
     </RelativeLayout>
 

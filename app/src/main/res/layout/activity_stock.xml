@@ -64,6 +64,7 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/activity_stock_item_padding"
                 android:text="@string/activity_stock_history_title"
+                android:textAlignment="viewStart"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
