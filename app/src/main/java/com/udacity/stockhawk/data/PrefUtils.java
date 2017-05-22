@@ -1,6 +1,7 @@
 package com.udacity.stockhawk.data;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
@@ -9,6 +10,8 @@ import com.udacity.stockhawk.R;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+
+import static com.udacity.stockhawk.sync.QuoteSyncJob.APPWIDGET_UPDATE;
 
 public final class PrefUtils {
 
@@ -84,6 +87,10 @@ public final class PrefUtils {
         } else {
             editor.putString(key, absoluteKey);
         }
+
+        Intent widgetBroadcastIntent = new Intent(APPWIDGET_UPDATE)
+                .setPackage( context.getPackageName() );
+        context.sendBroadcast(widgetBroadcastIntent);
 
         editor.apply();
     }

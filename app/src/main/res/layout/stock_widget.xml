@@ -1,0 +1,42 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#09C"
+    android:padding="@dimen/widget_margin">
+
+    <RelativeLayout
+        android:id="@+id/widget_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/widget_app_name"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/widget_app_name_height"
+            android:textColor="@color/black"
+            android:padding="@dimen/activity_stock_item_padding"
+            android:background="@color/material_teal_a700"
+            android:text="@string/app_name"/>
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="@dimen/widget_app_name_height"
+            android:layout_height="@dimen/widget_app_name_height"
+            android:background="@color/material_teal_a700"
+            android:padding="@dimen/activity_stock_item_padding"
+            android:contentDescription="@string/widget_cont_desc_app_icon"
+            android:src="@drawable/stock"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/widget_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/widget_title_bar"
+        tools:listitem="@layout/stock_widget_item"/>
+
+</RelativeLayout>
