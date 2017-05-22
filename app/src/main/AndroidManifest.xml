@@ -39,7 +39,7 @@
         <provider
             android:name=".data.StockProvider"
             android:authorities="com.udacity.stockhawk"
-            android:exported="true" />
+            android:exported="false" />
 
         <service
             android:name=".sync.QuoteJobService"

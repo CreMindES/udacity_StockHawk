@@ -16,11 +16,9 @@ import com.db.chart.model.LineSet;
 import com.db.chart.view.AxisController;
 import com.db.chart.view.ChartView;
 import com.db.chart.view.LineChartView;
-import com.github.mikephil.charting.charts.LineChart;
 import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.Utility;
 import com.udacity.stockhawk.data.Contract;
-import com.udacity.stockhawk.data.StockProvider;
 
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
@@ -31,8 +29,6 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import timber.log.Timber;
-
-import static java.security.AccessController.getContext;
 
 public class StockActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -75,8 +71,9 @@ public class StockActivity extends AppCompatActivity
         ButterKnife.bind(this);
 
         intent = getIntent();
-        if( !intent.hasExtra( "stock_uri" ) ) {
-            // TODO: error
+        if( !intent.hasExtra( ARG_STOCK_SYMBOL ) ) {
+            Timber.e("Missing stock symbol");
+            return;
         }
 
         symbol = intent.getStringExtra( ARG_STOCK_SYMBOL );
@@ -116,10 +113,11 @@ public class StockActivity extends AppCompatActivity
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         switch( loader.getId() ) {
             case CURSOR_LOADER_ID: {
-                if( data == null ) {
-                    // TODO: error
+                try {
+                    data.moveToFirst();
+                } catch (NullPointerException e) {
+                    Timber.e(e);
                 }
-                data.moveToFirst();
 
                 name           = data.getString( Contract.Quote.POSITION_NAME );
                 stockExchange  = data.getString( Contract.Quote.POSITION_STOCKEXCHANGE );

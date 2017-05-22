@@ -2,8 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="#09C"
-    android:padding="@dimen/widget_margin">
+    style="@style/Widget">
 
     <RelativeLayout
         android:id="@+id/widget_title_bar"

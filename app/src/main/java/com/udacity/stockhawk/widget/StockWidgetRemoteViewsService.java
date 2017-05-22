@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Binder;
-import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.widget.RemoteViews;
@@ -15,10 +14,6 @@ import com.udacity.stockhawk.Utility;
 import com.udacity.stockhawk.data.Contract;
 import com.udacity.stockhawk.data.PrefUtils;
 import com.udacity.stockhawk.ui.StockActivity;
-
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.Locale;
 
 import timber.log.Timber;
 
@@ -78,9 +73,6 @@ public class StockWidgetRemoteViewsService extends RemoteViewsService {
                     Timber.e( "cursor.moveToPosition failed" );
                     return remoteViewRow;
                 }
-
-                SharedPreferences preferences = PreferenceManager
-                        .getDefaultSharedPreferences( getApplicationContext() );
 
                 String symbol       = cursor.getString( Contract.Quote.POSITION_SYMBOL );
                 float price         = cursor.getFloat ( Contract.Quote.POSITION_PRICE  );
