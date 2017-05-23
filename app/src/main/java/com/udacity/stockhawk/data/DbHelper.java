@@ -4,7 +4,10 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.google.common.collect.ImmutableMap;
 import com.udacity.stockhawk.data.Contract.Quote;
+
+import java.util.Map;
 
 
 class DbHelper extends SQLiteOpenHelper {
@@ -12,6 +15,11 @@ class DbHelper extends SQLiteOpenHelper {
 
     private static final String NAME = "StockHawk.db";
     private static final int VERSION = 3;
+
+    private static final Map< String, String > tableUpgradeMap = ImmutableMap.<String, String>builder()
+        .put("1_2", "ALTER TABLE " + NAME + " ADD COLUMN " + Quote.COLUMN_NAME + " TEXT NOT NULL;" )
+        .put("2_3", "ALTER TABLE " + NAME + " ADD COLUMN " + Quote.COLUMN_STOCKEXCHANGE + " TEXT NOT NULL;" )
+        .build();
 
 
     DbHelper(Context context) {
@@ -32,14 +40,15 @@ class DbHelper extends SQLiteOpenHelper {
                 + "UNIQUE (" + Quote.COLUMN_SYMBOL + ") ON CONFLICT REPLACE);";
 
         db.execSQL(builder);
-
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-        db.execSQL(" DROP TABLE IF EXISTS " + Quote.TABLE_NAME);
-
+        for( int i = oldVersion; i < newVersion; ++i ) {
+            final String key = String.valueOf( i ) + "_" + String.valueOf( i+1 );
+            db.execSQL( tableUpgradeMap.get( key ) );
+        }
         onCreate(db);
     }
 }
